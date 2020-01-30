@@ -1,17 +1,18 @@
 
-{{#if article}}
 {{#each article}}
+{{#unless saved}}
 <div class="col s12 m6" id="articles">
     <div class="card blue-grey darken-1">
         <div class="card-content white-text">
-            <span class="card-title">{{this.title}}</span>
-            <p>{{this.summary}}</p>
+            <span class="card-title">{{title}}</span>
+            <p>{{summary}}</p>
         </div>
         <div class="card-action">
-            <a href={{this.link}} target="blank">{{this.link}}</a>
+            <a href={{link}} target="blank">{{link}}</a>
 
         </div>
     </div>
+    {{/unless}}
     {{/each}}
         {{else}}
         <div class="panel panel-default">
@@ -19,5 +20,5 @@
             <h4>Uh Oh. Looks like we don't have any new articles.</h4>
             </div>
          </div>
-        {{/if}}
+        {{/else}}
 </div>

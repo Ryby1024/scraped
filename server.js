@@ -21,13 +21,16 @@ app.set("view engine", "handlebars");
 
 mongoose.connect("mongodb://localhost/nyscrape", { useNewUrlParser: true });
 
-app.get("/", function(req, res) {
-    Article.find({"saved": false}, function(error, data) {
-      var hbsObject = {
-        article: data
-      };
-      console.log(hbsObject);
-      res.render("articles", hbsObject);
+app.get("/", function(req, res){
+    res.render("home");
+});
+
+app.get("/articles", function(req, res) {
+    Article.find({})
+    .then(function(dbArticle){
+        res.json(dbArticle);
+    }).catch(function(err){
+        res.json(err);
     });
   });
   
