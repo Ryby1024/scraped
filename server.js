@@ -34,14 +34,6 @@ app.get("/articles", function(req, res) {
     });
   });
   
-  app.get("/saved", function(req, res) {
-    Article.find({"saved": true}).populate("notes").exec(function(error, articles) {
-      var hbsObject = {
-        article: articles
-      };
-      res.render("saved", hbsObject);
-    });
-  });
 
 app.get("/scrape", function(req, res){
     axios.get("https://www.nytimes.com/section/technology").then(function(response){
@@ -73,15 +65,7 @@ app.get("/scrape", function(req, res){
     });
 });
 
-app.get("/articles", function(req, res){
-    Article.find({})
-    .then(function(dbArticle){
-        res.json(dbArticle);
-    })
-    .catch(function(err){
-        res.json(err);
-    });
-});
+
 
 app.get("/articles/:id", function(req, res){
     Article.findOne({_id: req.params.id})
