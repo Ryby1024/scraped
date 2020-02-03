@@ -6,12 +6,14 @@
     <div class="col s2"></div>
     <div class="col s8 left-align">
         {{#each article}}
+        {{#unless saved}}
         <div class="card-panel">
             <h4>{{this.title}}</h4>
-            <a href="/readArticle/{{this.link}}" class="waves-effect waves-light btn" id="btnSignUp">Read Article</a>
-
+            <button class="waves-effect waves-light btn" id="saveArticle">Save Article</button>
+            <button class="waves-effect waves-light btn" id="commentBtn">Comment on Article</button>
+            <p>{{this.summary}}</p>
         </div>
-
+        {{/unless}}
         {{/each}}
     </div>
 </div>

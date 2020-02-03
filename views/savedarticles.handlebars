@@ -1,0 +1,15 @@
+<div class="row" id="articleContainer">
+    <div class="col s2"></div>
+    <div class="col s8 left-align">
+        {{#each article}}
+        {{#if saved}}
+        <div class="card-panel">
+            <h4>{{this.title}}</h4>
+            <button class="waves-effect waves-light btn" id="saveArticle">Add Note</button>
+            <button class="waves-effect waves-light btn" id="commentBtn">Delete from Saved</button>
+            <p>{{this.summary}}</p>
+        </div>
+        {{/saved}}
+        {{/each}}
+    </div>
+</div>
