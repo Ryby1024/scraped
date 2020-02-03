@@ -22,19 +22,21 @@ app.set("view engine", "handlebars");
 mongoose.connect("mongodb://localhost/nyscrape", { useNewUrlParser: true });
 
 app.get("/", function(req, res){
-    res.render("index");
+    Article.find({}).then(function(dbArticle){
+        res.render("index", {article: dbArticle});
+    
 });
 
-app.get("/articles", function(req, res) {
-    Article.find({}).then(function(dbArticle){
-        res.json(dbArticle);
-    }).catch(function(err){
-        res.json(err);
-    });
+// app.get("/articles", function(req, res) {
+//     Article.find({}).then(function(dbArticle){
+//         res.json(dbArticle);
+//     }).catch(function(err){
+//         res.json(err);
+//     });
       
-  });
+//   });
   
-
+});
 app.get("/scrape", function(req, res){
     console.log("scraped")
     axios.get("https://www.nytimes.com/section/technology").then(function(response){
