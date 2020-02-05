@@ -30,20 +30,22 @@ app.get("/", function (req, res) {
         };
         res.render("index", { article: articles });
 
-    });
+    });    
 
-    app.get("/articles/:id", function (req, res) {
-        Article.findOne({_id: req.params.id}).then(function (dbArticle) {
-            let myArticle = [];
+});
+
+app.get("/saved", function (req, res) {
+    Article.find({"saved": true}).populate("notes").exec(function(error, dbArticle) {
+        let articles = [];
         for (const el of dbArticle) {
-            myArticle.push({ id: el._id, title: el.title, summary: el.summary, link: el.link });
-        }
-        res.render("articles",{article: myArticle} )
-        }).catch(function (err) {
-            res.json(err);
-        });
+            articles.push({ id: el._id, title: el.title, summary: el.summary, link: el.link });
+
+        };
+        res.render("savedarticles", { article: articles });
 
     });
+
+    
 
 });
 app.get("/scrape", function (req, res) {
@@ -51,7 +53,7 @@ app.get("/scrape", function (req, res) {
     axios.get("https://www.nytimes.com/section/technology").then(function (response) {
         var $ = cheerio.load(response.data);
 
-        let titlesArray = [];
+        
         $("article h2").each(function (i, element) {
             let result = {};
             result.title = $(this)
@@ -114,12 +116,16 @@ app.post("/comment/:id", function (req, res) {
             res.json(err);
         });
 });
-app.get("/save/:id", function(req, res){
-    Article.update({_id: req.params.id}, {saved: true})
-    .then(function(dbArticle){
-        res.render("savedarticles", {articles: dbArticle})
-    }).catch(function(err){
-        res.json(err)
+app.post("/articles/save/:id", function(req, res) {
+    
+    Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": true})
+    .exec(function(err, doc) {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        res.send(doc);
+      }
     });
 });
 app.listen(PORT, function () {

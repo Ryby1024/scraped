@@ -10,10 +10,15 @@ $("#scrape").on("click", function(){
       })
   });
 
-  $(document).on("click", "#saveArticle", function(e){
+  $(document).on("click", "#saveArticle", function(){
     console.log("Button clicked");
     let articleId = $(this).data("id");
-    console.log(articleId);
+    $.ajax({
+      method: "POST",
+      url: "/articles/save/" + articleId
+  }).done(function(data) {
+      window.location = "/"
+  })
 
     
   })
