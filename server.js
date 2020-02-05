@@ -66,7 +66,7 @@ app.get("/scrape", function (req, res) {
                 .children("p")
                 .text();
 
-            result.link = $(this)
+            result.link = "https://www.nytimes.com" + $(this)
                 .children("a")
                 .attr("href");
 
@@ -97,7 +97,7 @@ app.get("/scrape", function (req, res) {
 app.get("/articles/:id", function (req, res) {
     Article.findOne({ _id: req.params.id })
         .populate("note")
-        .then(function (dbArticle) {
+        .exec(function (dbArticle) {
             res.json(dbArticle);
 
         }).catch(function (err) {
@@ -108,7 +108,7 @@ app.get("/articles/:id", function (req, res) {
 app.post("/notes/save/:id", function (req, res) {
     Note.create(req.body)
         .then(function (dbNote) {
-            return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true })
+            return Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true })
         })
         .then(function (dbArticle) {
             res.json(dbArticle);

@@ -39,17 +39,17 @@ $("#saveNote").on("click", function () {
       method: "POST",
       url: "/notes/save/" + thisId,
       data: {
-        body: $("#noteText").val()
+        body: $("#noteText" + thisId).val()
       }
     }).done(function (data) {
       console.log(data);     
       $("#noteText" + thisId).val("");
       $(".modalNote").hide();
-      $("#savedArticles").show();
       window.location = "/saved"
     });
   }
 });
+
 
 $("#deleteArticle").on("click", function() {
   var thisId = $(this).attr("data-id");

@@ -6,7 +6,7 @@
         <div class="card-panel">
             <h4>{{this.title}}</h4>
             <button class="waves-effect waves-light btn" data-target="noteModal" class="btn modal-trigger"
-                id="checkNotes" data-id={{this.id}}>View or Add a Note</button>
+                id="checkNotes"href="#noteModal" data-id={{this.id}}>View or Add a Note</button>
             <button class="waves-effect waves-light btn" id="deleteArticle" data-id={{this.id}}>Delete from Saved</button>
             <p>{{this.summary}}</p>
             <a href={{this.link}} target="_blank">{{this.link}}</a>

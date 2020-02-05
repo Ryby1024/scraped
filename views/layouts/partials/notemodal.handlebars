@@ -1,7 +1,5 @@
-<div class="modal  modalNote" id="noteModal{{this._id}}" role="dialog">
+<div class="modal  modalNote" id="noteModal{{this._id}}">
     <div class="modal-header blue-grey darken-1 white-text">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Notes for: {{this.title}}</h4>
     </div>
     <div class="modal-content">
@@ -29,6 +27,7 @@
     </div>
     <div class="modal-footer">
         <button class="waves-effect waves-light btn" id="saveNote" data-id={{this.id}}>Save Note</button>
+        <a href="/saved" class="modal-close waves-effect waves-green btn-flat">Close</a>
     </div>
 
 </div>
