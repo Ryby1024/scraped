@@ -39,7 +39,7 @@ $("#saveNote").on("click", function () {
       method: "POST",
       url: "/notes/save/" + thisId,
       data: {
-        body: $("#noteText" + thisId).val()
+        body: $("#noteText").val()
       }
     }).done(function (data) {
       console.log(data);     
