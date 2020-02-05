@@ -22,9 +22,10 @@ $(document).on("click", "#saveArticle", function () {
   })
 });
 
-$("#addNote").on("click", function () {
+$("#checkNotes").on("click", function () {
   $("#savedArticles").hide();
   $("#noteModal").show();
+ 
 });
 
 $("#saveNote").on("click", function () {
@@ -41,9 +42,7 @@ $("#saveNote").on("click", function () {
         body: $("#noteText" + thisId).val()
       }
     }).done(function (data) {
-      // Log the response
-      console.log(data);
-      // Empty the notes section
+      console.log(data);     
       $("#noteText" + thisId).val("");
       $(".modalNote").hide();
       $("#savedArticles").show();
