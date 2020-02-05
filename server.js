@@ -10,19 +10,20 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 const exphbs = require("express-handlebars");
+const path = require("path");
 
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(express.static("public"));
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.engine("handlebars", exphbs({ defaultLayout: "main", partialsDir: path.join(__dirname, "/views/layouts/partials") }));
 app.set("view engine", "handlebars");
 
 mongoose.connect("mongodb://localhost/nyscrape", { useNewUrlParser: true });
 
 app.get("/", function (req, res) {
-    Article.find({}).then(function (dbArticle) {
+    Article.find({"saved": false}).then(function (dbArticle) {
         let articles = [];
         for (const el of dbArticle) {
             articles.push({ id: el._id, title: el.title, summary: el.summary, link: el.link });
@@ -35,7 +36,7 @@ app.get("/", function (req, res) {
 });
 
 app.get("/saved", function (req, res) {
-    Article.find({"saved": true}).populate("notes").exec(function(error, dbArticle) {
+    Article.find({"saved": true}).populate("note").exec(function(error, dbArticle) {
         let articles = [];
         for (const el of dbArticle) {
             articles.push({ id: el._id, title: el.title, summary: el.summary, link: el.link });
@@ -86,6 +87,7 @@ app.get("/scrape", function (req, res) {
 
 
     });
+   res.send("Scrape complete")
    res.redirect("/")
 });
 
@@ -103,14 +105,14 @@ app.get("/articles/:id", function (req, res) {
         });
 });
 
-app.post("/comment/:id", function (req, res) {
+app.post("/notes/save/:id", function (req, res) {
     Note.create(req.body)
         .then(function (dbNote) {
-
             return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true })
         })
         .then(function (dbArticle) {
             res.json(dbArticle);
+
         })
         .catch(function (err) {
             res.json(err);
@@ -118,12 +120,24 @@ app.post("/comment/:id", function (req, res) {
 });
 app.post("/articles/save/:id", function(req, res) {
     
-    Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": true})
+    Article.findOneAndUpdate({ "_id": req.params.id }, { saved: true})
     .exec(function(err, doc) {
       if (err) {
         console.log(err);
       }
       else {
+        res.send(doc);
+      }
+    });
+});
+app.post("/articles/delete/:id", function(req, res) {    
+    Article.findOneAndUpdate({ "_id": req.params.id }, {saved: false})    
+    .exec(function(err, doc) {     
+      if (err) {
+        console.log(err);
+      }
+      else {
+        
         res.send(doc);
       }
     });

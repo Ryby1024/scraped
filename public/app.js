@@ -1,26 +1,65 @@
 
-$("#scrape").on("click", function(){
-    console.log("clicked")
-      $.ajax({
-          method: "GET",
-          url: "/scrape",
-      }).done(function(data){
-          console.log(data);
-          window.location.href = "/";
-      })
-  });
+$("#scrape").on("click", function () {
+  console.log("clicked")
+  $.ajax({
+    method: "GET",
+    url: "/scrape",
+  }).done(function (data) {
+    console.log(data);
+  })
+});
 
-  $(document).on("click", "#saveArticle", function(){
-    console.log("Button clicked");
-    let articleId = $(this).data("id");
+
+
+$(document).on("click", "#saveArticle", function () {
+  console.log("Button clicked");
+  let articleId = $(this).data("id");
+  $.ajax({
+    method: "POST",
+    url: "/articles/save/" + articleId
+  }).done(function (data) {
+    window.location = "/"
+  })
+});
+
+$("#addNote").on("click", function () {
+  $("#savedArticles").hide();
+  $("#noteModal").show();
+});
+
+$("#saveNote").on("click", function () {
+  console.log("save note clicked")
+  var thisId = $(this).attr("data-id");
+  console.log(thisId)
+  if (!$("#noteText" + thisId).val()) {
+    alert("please enter a note to save")
+  } else {
     $.ajax({
       method: "POST",
-      url: "/articles/save/" + articleId
+      url: "/notes/save/" + thisId,
+      data: {
+        body: $("#noteText" + thisId).val()
+      }
+    }).done(function (data) {
+      // Log the response
+      console.log(data);
+      // Empty the notes section
+      $("#noteText" + thisId).val("");
+      $(".modalNote").hide();
+      $("#savedArticles").show();
+      window.location = "/saved"
+    });
+  }
+});
+
+$("#deleteArticle").on("click", function() {
+  var thisId = $(this).attr("data-id");
+  console.log(thisId)
+  $.ajax({
+      method: "POST",
+      url: "/articles/delete/" + thisId
   }).done(function(data) {
-      window.location = "/"
+      window.location = "/saved"
   })
+});
 
-    
-  })
-
-  
