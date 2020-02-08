@@ -1,0 +1,24 @@
+body   {
+    background-image: url("../img/newspaper.jpg");
+    font-family: 'Courier Prime', monospace;
+}
+
+.btn    {
+    margin: 5px;  
+    
+}
+
+.card-panel {
+    background-color: wheat
+}
+
+#heading    {
+    color: black;
+    text-align: center;
+}
+#navbar {
+    background-color: #4db6ac;
+}
+#home {
+    color: black;
+}

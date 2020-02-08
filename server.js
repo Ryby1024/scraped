@@ -20,7 +20,9 @@ app.use(express.static("public"));
 app.engine("handlebars", exphbs({ defaultLayout: "main", partialsDir: path.join(__dirname, "/views/layouts/partials") }));
 app.set("view engine", "handlebars");
 
-mongoose.connect("mongodb://localhost/nyscrape", { useNewUrlParser: true });
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+mongoose.connect(MONGODB_URI);
 
 app.get("/", function (req, res) {
     Article.find({ "saved": false }).then(function (dbArticle) {
@@ -37,14 +39,19 @@ app.get("/", function (req, res) {
 
 app.get("/saved", function (req, res) {
     Article.find({ "saved": true }).populate("note").exec(function (error, dbArticle) {
-        console.log(dbArticle)
+        
         let articles = [];
         for (const el of dbArticle) {
             let article = { id: el._id, title: el.title, summary: el.summary, link: el.link}
-            if(el.note) article.note = el.note.body
+            // console.log(article)
+            if(el.note) { 
+                article.note = el.note.body
+                article.noteID = el.note._id
+            }
             articles.push(article);
 
         };
+        
         res.render("savedarticles", { article: articles });
 
     });
@@ -107,10 +114,11 @@ app.post("/notes/save/:id", function (req, res) {
             res.json(err);
         });
 });
-app.get("notes/delete/:id", function (req, res) {
+app.delete("/notes/delete/:id", function (req, res) {
+    console.log(req.params)
     Note.findByIdAndRemove(
         {
-            _id: req.params.note_id
+            _id: req.params.id
         },
         function (error, removed) {
             if (error) {
@@ -118,7 +126,7 @@ app.get("notes/delete/:id", function (req, res) {
                 res.send(error)
             } else {
                 console.log(removed);
-                res.send(removed)
+                res.redirect("/saved")
             }
         }
     )

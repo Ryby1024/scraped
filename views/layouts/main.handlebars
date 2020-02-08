@@ -10,34 +10,46 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
     <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Courier+Prime&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/styles.css">
 
 
 </head>
 
 <body>
-    <nav>
+
+    <nav id="navbar">
         <div class="nav-wrapper">
-            <a href="/" class="brand-logo">Home</a>
+            <button class="#37474f blue-grey darken-3 btn" id="homeBtn"><a href="/">Home
+                    </a></button>
             <ul class="right hide-on-med-and-down">
-                <li><button class="waves-effect waves-light btn" id="savedArticle"><a href="/saved">Saved
+                <li><button class="#37474f blue-grey darken-3 btn" id="savedArticle"><a href="/saved">Saved
                             Articles</a></button></li>
-                <li><button class="waves-effect waves-light btn" id="scrape">Scrape Some Articles</button></li>
+                <li><button class="#37474f blue-grey darken-3 btn" id="scrape">Scrape Some Articles</button></li>
             </ul>
         </div>
     </nav>
-    <div class="container text-center">
-        
-            <h1>New York Times</h1>
-            <h3>Web Scraper</h3>
-        
+
+
+    <div class="container-fluid" id="heading">
+
+        <h1>New York Times</h1>
+        <h3>Web Scraper</h3>
+
     </div>
+
     <div class="container-fluid">
+        <div id="returnHome">
+            <h3>Hit the home button after scraping to view your articles!</h3>
+        </div>
 
         {{{ body }}}
     </div>
+
     <script src="/app.js" type="text/javascript"></script>
 </body>
 
