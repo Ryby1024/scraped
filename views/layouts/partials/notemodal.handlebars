@@ -1,14 +1,14 @@
 
 
 <div class="modal  modalNote {{this.id}}">
-    <div class="modal-header blue-grey darken-1 white-text">
+    <div class="modal-header">
         <h4 class="modal-title">Notes for: {{this.title}}</h4>
     </div>
     <div class="modal-content">
         {{#if this.note}}
         
-        <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
+        <div class="card card-body">
+            <div class="card-content">
                 <p class="previousNotes"> {{this.note}}</p>
                 <button type="button" class="waves-effect waves-light btn deleteNote" data-note-id={{this.noteID}} data-article-id={{this.id}}>Delete
                     Note</button>
@@ -16,8 +16,8 @@
         </div>
         
         {{else}}
-        <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
+        <div class="card card-body">
+            <div class="card-content">
                 <h4>No notes for this article yet.</h4>
             </div>
         </div>

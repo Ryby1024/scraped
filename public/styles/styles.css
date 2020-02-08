@@ -22,3 +22,15 @@ body   {
 #home {
     color: black;
 }
+h4{
+    text-align: center;
+}
+.modalNote  {
+    background-color: wheat;
+}
+.card-body  {
+    background-color: #4db6ac;
+}
+.modal-header   {
+    background-color: #4db6ac;
+}
