@@ -7,7 +7,7 @@
 
 <p>An app that scrapes the technology section of the New York Times. </p>
 
-![Scraper snapshot](/images/snapshot.jpg)
+![Scraper snapshot](public/img/snapshot.jpg)
 
 #### How it works
 
