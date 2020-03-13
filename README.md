@@ -17,6 +17,12 @@
 * After saving an article, click on the saved articles page.
 * On the saved articles page you can either add a note to an article or delete the article from the saved articles.
 
+#### Adding a Note
+
+![Scraper](public/img/scrapenote.jpg)
+
+
+![Note](public/img/shownote.jpg)
 
 #### Technologies Used
 
