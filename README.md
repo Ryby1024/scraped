@@ -9,6 +9,10 @@
 
 ![Scraper snapshot](public/img/snapshot.jpg)
 
+#### Link to the application
+
+https://evening-thicket-08549.herokuapp.com/
+
 #### How it works
 
 * Scrape articles by hitting the scrape articles button.
